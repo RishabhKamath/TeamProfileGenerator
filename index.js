@@ -1,36 +1,6 @@
 const inquirer = require('inquirer');
-
+const fs = require('fs');
 const team = [];
-
-inquirer
-  .prompt([
-    {
-      type: 'input',
-      name: 'name',
-      message: 'Enter the team manager\'s name:'
-    },
-    {
-      type: 'input',
-      name: 'id',
-      message: 'Enter the team manager\'s employee ID:'
-    },
-    {
-      type: 'input',
-      name: 'email',
-      message: 'Enter the team manager\'s email address:'
-    },
-    {
-      type: 'input',
-      name: 'officeNumber',
-      message: 'Enter the team manager\'s office number:'
-    }
-  ])
-  .then(answers => {
-    // Store the team manager's information in a variable
-    const manager = answers;
-
-    // Perform other actions with the manager's information, such as adding the manager to the team array
-  });
 
   function promptUser() {
     inquirer
@@ -39,11 +9,14 @@ inquirer
           type: 'list',
           name: 'memberType',
           message: 'What type of team member would you like to add?',
-          choices: ['Engineer', 'Intern', 'Done']
+          choices: ['Manager','Engineer', 'Intern', 'Done']
         }
       ])
       .then(answers => {
         switch (answers.memberType) {
+          case 'Manager':
+            addManager();
+            break;
           case 'Engineer':
             addEngineer();
             break;
@@ -55,6 +28,38 @@ inquirer
         }
       });
   }
+
+function addManager() {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'name',
+                message: 'Enter the team manager\'s name:'
+            },
+            {
+                type: 'input',
+                name: 'id',
+                message: 'Enter the team manager\'s employee ID:'
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: 'Enter the team manager\'s email address:'
+            },
+            {
+                type: 'input',
+                name: 'officeNumber',
+                message: 'Enter the team manager\'s office number:'
+            }
+        ])
+        .then(answers => {
+            const manager = answers;
+            manager.role = 'Manager';
+            team.push(manager);
+            promptUser();
+        });
+}
   
   function addEngineer() {
     inquirer
