@@ -25,6 +25,8 @@ const team = [];
             break;
           default:
             generateHTML();
+        //    case 'Done':
+        //     generateHTML();
         }
       });
   }
@@ -127,7 +129,9 @@ function addManager() {
   
   function generateHTML() {
     // Generate the HTML file using the team array
-  }
+    console.log('HTML generated');
+}
+ 
   
   // Start the application by prompting the user for manager information
   promptUser();
